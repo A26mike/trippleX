@@ -49,7 +49,6 @@ void PrintIntroduction(int Difficulty)
     std::cout << "Your SuperHacker 2000 tells you the following information...\n";
 }
 
-
 int GetRandomNum(int start, int end){
     int results = start + (rand() % end);
     return results;
