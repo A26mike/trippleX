@@ -1,5 +1,6 @@
 // cl trippleX.cpp /EHsc
 #include <iostream>
+#include <cctype>
 #include <ctime>
 #include <cstdlib>
 
@@ -96,29 +97,45 @@ bool PlayGame(int Difficulty)
     }
 }
 
+bool GameEnd(int LevelDifficulty){
+    std::cout << "\nCongratulations you made it to level " << LevelDifficulty << std::endl;
+    std::cout << "Press any key to quit" <<  std::endl;
+    std::cin.ignore(); 
+    return true;
+}
+
 int main()
 {
     int LevelDifficulty = 1;
     bool EndGame = false;
+    const int MaxLevel = 12;
+    char tryAgain;
     while (!EndGame)
     {
         bool bLevelComplete = PlayGame(LevelDifficulty);
-
         // stop infinate loop if char is entered
         std::cin.clear();  // clears errors
         std::cin.ignore(); // Discards the buffer
 
         if (bLevelComplete)
         {
-            //increase level difficulty
             ++LevelDifficulty;
         }
-        else
+
+        // ends game if guess is wrong or if max level is achieved 
+        else if (!bLevelComplete)
         {
-            EndGame = true;
-            std::cout << "\nCongratulations you made it to level " << LevelDifficulty << std::endl;
-            std::cout << "Press any key to quit" <<  std::endl;
-            std::cin.ignore();  
+            std::cout << "Would you like to try again? Enter y/n" << std::endl;
+            std::cin >> tryAgain;
+
+            if (tolower(tryAgain) == 'n'){
+                EndGame = GameEnd(LevelDifficulty);
+            }
+        }
+
+        else if (LevelDifficulty >= MaxLevel) // ends game
+        {
+            EndGame = GameEnd(LevelDifficulty);
         }
     }
     return 0;
