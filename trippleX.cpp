@@ -116,6 +116,9 @@ int main()
         else
         {
             EndGame = true;
+            std::cout << "\nCongratulations you made it to level " << LevelDifficulty << std::endl;
+            std::cout << "Press any key to quit" <<  std::endl;
+            std::cin.ignore();  
         }
     }
     return 0;
