@@ -50,7 +50,8 @@ void PrintIntroduction(int Difficulty)
     std::cout << "Your SuperHacker 2000 tells you the following information...\n";
 }
 
-int GetRandomNum(int start, int end){
+int GetRandomNum(int start, int end)
+{
     int results = start + (rand() % end);
     return results;
 }
@@ -59,8 +60,8 @@ bool PlayGame(int Difficulty)
 {
     //random number 1 - Difficulty
     const int CodeA = GetRandomNum(1, Difficulty);
-    const int CodeB = GetRandomNum(1 , Difficulty);
-    const int CodeC = GetRandomNum(1 , Difficulty);
+    const int CodeB = GetRandomNum(1, Difficulty);
+    const int CodeC = GetRandomNum(1, Difficulty);
 
     PrintIntroduction(Difficulty);
     const int CodeProduct = CodeA * CodeB * CodeC;
@@ -97,10 +98,11 @@ bool PlayGame(int Difficulty)
     }
 }
 
-bool GameEnd(int LevelDifficulty){
+bool GameEnd(int LevelDifficulty)
+{
     std::cout << "\nCongratulations you made it to level " << LevelDifficulty << std::endl;
-    std::cout << "Press any key to quit" <<  std::endl;
-    std::cin.ignore(); 
+    std::cout << "Press any key to quit" << std::endl;
+    std::cin.ignore();
     return true;
 }
 
@@ -110,7 +112,8 @@ int main()
     bool EndGame = false;
     const int MaxLevel = 12;
     char tryAgain;
-    while (!EndGame)
+    srand(time(NULL));
+    while (!EndGame || LevelDifficulty >= MaxLevel)
     {
         bool bLevelComplete = PlayGame(LevelDifficulty);
         // stop infinate loop if char is entered
@@ -122,21 +125,19 @@ int main()
             ++LevelDifficulty;
         }
 
-        // ends game if guess is wrong or if max level is achieved 
+        // ends game if guess is wrong or if max level is achieved
         else if (!bLevelComplete)
         {
             std::cout << "Would you like to try again? Enter y/n" << std::endl;
             std::cin >> tryAgain;
 
-            if (tolower(tryAgain) == 'n'){
+            if (tolower(tryAgain) == 'n')
+            {
                 EndGame = GameEnd(LevelDifficulty);
             }
         }
-
-        else if (LevelDifficulty >= MaxLevel) // ends game
-        {
-            EndGame = GameEnd(LevelDifficulty);
-        }
     }
+    std::cout << "Congratulations you stole all the files you made it to the final level # " << LevelDifficulty << std::endl;
+
     return 0;
 }
